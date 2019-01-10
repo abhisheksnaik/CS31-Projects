@@ -1,0 +1,258 @@
+
+
+1
+
+1a)
+
+#include <iostream>
+using namespace std;
+
+
+int main()
+{
+    int arr[3] = { 5, 10, 15 };
+    int* ptr = &arr[0];
+    
+    
+    *(ptr) = 20;     // set arr[0] to 30
+    *(ptr+1) = 30;      // set arr[1] to 20
+    ptr += 2;
+    *(ptr-3) = 10;        // set arr[2] to 10
+    
+    while (ptr >= arr)
+    {
+        ptr--;
+        cout << *ptr << endl;    // print values
+    }
+}
+
+1b)
+There is a missing ampersand in the parameters of the function, findMax. That missing ampersand is the reason why the value is sent by value instead of by reference and as a result the pToMax doesn’t link with the local variable, ptr, in main. Also, the for loop should be adjusted to traverse through the entire array. 
+
+#include <iostream>
+using namespace std;
+
+
+void findMax(int arr[], int n, int* &pToMax)
+{
+    if (n <= 0)
+        return;      // no items, no maximum!
+    
+    pToMax = arr;
+    
+    for (int i = 0; i < n; i++)
+    {
+        if (arr[i] > *pToMax)
+            pToMax = arr + i;
+    }
+}
+
+int main()
+{
+    int nums[4] = { 5, 3, 15, 6 };
+    int* ptr = nums;
+    
+    findMax(nums, 4, ptr);
+    cout << "The maximum is at address " << ptr << endl;
+    cout << "It's at position " << ptr - nums << endl;
+    cout << "Its value is " << *ptr << endl;
+}
+
+1c)
+
+Pointer, ptr, is not initialized. It should be mapped to some memory address.
+
+#include <iostream>
+using namespace std;
+
+
+void computeCube(int n, int* ncubed)
+{
+    *ncubed = n * n * n;
+}
+
+int main()
+{
+	int address;
+    int* ptr = &address;
+    computeCube(5, ptr);
+    cout << "Five cubed is " << *ptr << endl;
+}
+
+1d)
+
+The error in the code is that the function tries to, at both the while loop and also the if statement to compare the pointer to an int or a pointer to another pointer. This is wrong for what its intentions are. In the condition for while loop, the star operator is needed so the specific characters are compared to the null byte. The If statement needs star operators to follow the pointer to compare the specific elements of the c string at each memory address/index of c string. Lastly, the lengths need to be compared at the end to make sure the loops exited because both ended at the same time.
+
+
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+
+// return true if two C strings are equal
+bool strequal(const char str1[], const char str2[])
+{
+    while (*str1 != '\0'  &&  *str2 != '\0')
+    {
+        if (*str1 != *str2)  // compare corresponding characters
+            return false;
+        str1++;            // advance to the next character
+        str2++;
+    }
+    return strlen(str1) == strlen(str2);   // both ended at same time?
+}
+
+int main()
+{
+    char a[15] = "Zhou";
+    char b[15] = "Zhu";
+    
+    if (strequal(a,b))
+        cout << "They're the same person!\n";
+}
+
+1e)
+It is undefined behavior to send an array to another function and receive it as a pointer and then return that pointer. The array is not defined outside of the function it is initialized in. As a result, the pointer does not point to the address of anArray but some empty memory address.
+
+2)
+
+2a)
+double value;
+double* cat = &value;
+
+2b)
+double mouse[5];
+
+2c)
+cat = mouse[4];
+
+2d)
+*cat = 25;
+
+2e)
+*(mouse + 3) = 42
+
+2f)
+cat -= 3;
+
+2g)
+cat[1] = 54;
+
+2h)
+cat[0] = 27;
+
+2i)
+bool b = (*cat == *(cat[1]));
+
+2j)
+bool d = (cat == mouse);
+
+3)
+
+3a)
+
+double mean(const double* scores, int numScores)
+{
+    //const double* ptr = scores;
+    double tot = 0;
+    int i = 0;
+    while (i < (numScores))
+    {
+        tot += *(scores + i);
+        i++;
+    }
+    return tot/numScores;
+}
+
+3b)
+
+const char* findTheChar(const char str[], char chr)
+{
+    for (int k = 0; *(str+k) != '\0'; k++)
+        if (*(str+k) == chr)
+            return (str + k);
+    
+    return nullptr;
+}
+
+3c)
+const char* findTheChar(const char str[], char chr)
+{
+    while(*str != '\0'){
+        if (*(str) == chr)
+            return (str);
+        str++;
+    }
+    return nullptr;
+}
+
+
+4)
+
+3
+4
+79
+-1
+9
+22
+19
+
+The first cout statement says to cout the difference between the addresses of array[5] and ptr, which was array[2]. So the differences of the addresses of the the sixth element and the third element. So 3 is printed.
+
+The Maxwell function returned and set the memory address of the first element to ptr, and then the next statement set ptr/array[0] to -1. Then added two to ptr and set ptr[1]/array[2] to 9, replacing the 17. Lastly, the second element of the array is set to 79 with the statement *(array+1) = 79;
+
+The swap2 function swapped the element of array[0] and array[2], so it replaced -1 with 4. Swap1 did nothing. 
+
+The for loop at the end of the main printed all six elements of the array. So it printed, 4,79,-1,9,22,19 each per line.  
+
+
+5)
+
+void removeS(char* ptr){
+    char* withoutS = ptr;
+    for(;*withoutS != '\0'; ptr++){
+        if((*ptr != 'S') && (*ptr != 's')){
+            *withoutS = *ptr;
+            withoutS++;
+        }
+    }
+    ptr = withoutS;
+}
+
+Arnav
+
+
+string* fp;
+String fish[5];
+fp = fish + 4; &(fish[4])
+*fp = “yellowtail”;
+
+Bool d = (fp == fish);
+
+
+double computerAverage(const double* scores, int nScores)
+{
+	const double* ptr = scores;
+	double tot = 0;
+
+	int n = 0;
+
+	while(n != nScores)
+	{
+		tot += *(ptr + n);
+		n++;
+	}
+	return tot/nScores;
+}
+
+void deleteG(char* ptr){
+    char* deleteG = ptr;
+    for(;*deleteG != '\0'; ptr++){
+        if((*ptr != ‘G’) && (*ptr != ‘g’)){
+            *deleteG = *ptr;
+            deleteG++;
+        }
+    }
+    ptr = deleteG;
+}
+

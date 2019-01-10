@@ -1,0 +1,95 @@
+Project 2 Homework
+
+
+1)
+endlendl
+grendel
+
+
+2)
+The program would print the inputted amount of hashes in the first line and then would continuously decrease it by one and reprint on the following line until it runs out.
+
+
+3)
+
+
+        #include <iostream>
+        using namespace std;
+
+
+        int main()
+        {
+            int side;
+
+
+            cout << "Enter a number: ";
+            cin >> side;
+
+
+             for (int i = 0; i < side; i++)
+             {
+                while(int j >= 0)
+                {
+                     cout << "#";
+                        j= j-1;
+                }
+                cout << "\n";
+             }
+        return 0;
+        }
+
+
+4)
+        #include <iostream>
+        using namespace std;
+
+
+        int main()
+        {
+            int side;
+
+
+            cout << "Enter a number: ";
+            cin >> side;
+
+
+                if(side<0){
+                   side = side * (-1)
+                }
+                do{
+                for (int j = i; j >= 0; j--)
+                {
+                    cout << "#";
+                }
+                cout << "\n";
+                i++;
+             }while (i<side)
+        return 0;
+        }
+
+
+5)
+
+
+        #include <iostream>
+        using namespace std;
+
+
+        int main()
+        {
+                switch(codeSection){
+                        case 281:
+                                cout << "bigamy";
+                        case 321:
+                        case 322:
+                                cout << "selling illegal lottery tickets";
+                        case 383:
+                                cout << "selling rancid butter";
+                        case 598:
+                                cout << "wounding a bird in a public cemetery";
+                        default:
+                                cout << “some other crime”;
+                                
+                }
+        return 0;
+        }
